@@ -49,6 +49,7 @@ P 27
 - weight vector **_w_**, input value **_x_**, activation function **_f(z)_**  
 ![perceptron_1](https://cloud.githubusercontent.com/assets/5633774/24131835/32724ae4-0dae-11e7-8c04-28338c147e5b.png)  
 ![perceptron_2](https://cloud.githubusercontent.com/assets/5633774/24131862/5fbb9168-0dae-11e7-9a57-61ba250d1491.png)  
+- update weight based on unit step function  
 - learning rate: (0, 1]
 - steps:  
     1. initialize the weights to 0 or small random numbers  
@@ -65,7 +66,25 @@ P 27
     + the learning rate is sufficiently small  
     
         
-        
+### adaptive linear neurons --> ADAptive LInear NEuron (Adaline)  
+![adaline](https://cloud.githubusercontent.com/assets/5633774/24161424/9a24cb30-0e21-11e7-80e6-c8148d48160c.png)  
+- update weight based on a linear activation function --> the identity function of the net input  
+![adaline_weight](https://cloud.githubusercontent.com/assets/5633774/24161375/7604941a-0e21-11e7-8a27-acb2b706ec9e.png)  
+- quantizer: used to predict the class labels (similar to the unit step function)  
+      
+### cost function & gradient descent  
+- an objective function: to be optimized during the learning process  
+- e.g., sum of squared errors (SSE)  
+![sse](https://cloud.githubusercontent.com/assets/5633774/24161624/35a80950-0e22-11e7-83bb-9f377c5aa1a6.png)  
+    + differentiable  
+    + convex  
+- gradient descent: find the weights that minimize the cost function(if differentiable & convex) for classification  
+![gradient descent](https://cloud.githubusercontent.com/assets/5633774/24162045/7575e3f8-0e23-11e7-8568-d012f487a3b8.png)  
+![weight_up](https://cloud.githubusercontent.com/assets/5633774/24162069/8bc27aa4-0e23-11e7-9cf5-9db68aa7aa11.png)  
+![cost_fun_derivative](https://cloud.githubusercontent.com/assets/5633774/24162108/ac4c93a4-0e23-11e7-96bf-53aa7f9ece1a.png)  
+![update_rule](https://cloud.githubusercontent.com/assets/5633774/24162139/d2f598fc-0e23-11e7-8594-4ff36bf0ca66.png)  
 
 
+    
+ 
 
