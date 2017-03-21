@@ -44,7 +44,28 @@ P 27
     + how well model performs on the unseen data --> generalization error  
     + predict new, future data  
     
+### perceptron  
+![perceptron](https://cloud.githubusercontent.com/assets/5633774/24132180/c8886886-0db0-11e7-8885-a61f28592f56.png)  
+- weight vector **_w_**, input value **_x_**, activation function **_f(z)_**  
+![perceptron_1](https://cloud.githubusercontent.com/assets/5633774/24131835/32724ae4-0dae-11e7-8c04-28338c147e5b.png)  
+![perceptron_2](https://cloud.githubusercontent.com/assets/5633774/24131862/5fbb9168-0dae-11e7-9a57-61ba250d1491.png)  
+- learning rate: (0, 1]
+- steps:  
+    1. initialize the weights to 0 or small random numbers  
+    2. for each training sample x(i) perform the following steps  
+        1. compute the output value y' --> class label  
+        2. update the weights: in the case of a wrong prediction, the weights are being pushed towards the direction of the positive or negative target class  
+        ![perceptron_weight1](https://cloud.githubusercontent.com/assets/5633774/24132041/a09853b4-0daf-11e7-87e7-67ebfd34fb95.png)  
 
+        ![perceptron_weight2](https://cloud.githubusercontent.com/assets/5633774/24132056/b7561de8-0daf-11e7-8ca1-2ec05d47fcae.png)
+- Note: the convergence of the perceptron is only guaranteed if 
+    + the two classes are linearly separable
+        * set a maximum number of passes over the training dataset (epochs)  
+        * a threshold for the number of tolerated mis-classifications  
+    + the learning rate is sufficiently small  
+    
+        
+        
 
 
 
