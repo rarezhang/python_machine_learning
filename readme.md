@@ -29,6 +29,22 @@ P 27
         * reward signal: not the correct ground truth label or value, but a measure of **how well the action was measured** by a reward function  
     
 ### predictive modeling (work flow diagram)  
+![work flow diagram](https://cloud.githubusercontent.com/assets/5633774/24131161/1aa33044-0daa-11e7-896b-15da846f6657.png)
+- preprocessing:  
+    + extract meaningful features  
+    + same scale for optimal performance  
+    + dimensionality reduction: features may be highly correlated  
+    + separate training and test set  
+- training and selecting a predictive model  
+    + each classification algorithm has its inherent biases --> **no single classification model enjoys superiority**  
+    + define metric to measure performance  
+    + cross-validation  
+    + optimization techniques: fine-tune the performance 
+- evaluating models and predicting unseen data instances  
+    + how well model performs on the unseen data --> generalization error  
+    + predict new, future data  
+    
+
 
 
 
