@@ -1,5 +1,6 @@
 """
 Implementing an Adaptive Linear Neuron in Python
+Gradient descent 
 """
 
 import numpy as np 
