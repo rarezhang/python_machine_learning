@@ -7,6 +7,7 @@ import numpy as np
 class AdalineGD(object):
     """
     ADAptive LInear NEuron classifier 
+    GD: gradient descent 
     
     Parameters
     ------------
