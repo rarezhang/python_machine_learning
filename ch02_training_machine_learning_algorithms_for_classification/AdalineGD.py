@@ -2,6 +2,8 @@
 Implementing an Adaptive Linear Neuron in Python
 """
 
+import numpy as np 
+
 class AdalineGD(object):
     """
     ADAptive LInear NEuron classifier 

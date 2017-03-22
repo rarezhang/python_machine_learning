@@ -50,14 +50,13 @@ P 27
 ![perceptron_1](https://cloud.githubusercontent.com/assets/5633774/24131835/32724ae4-0dae-11e7-8c04-28338c147e5b.png)  
 ![perceptron_2](https://cloud.githubusercontent.com/assets/5633774/24131862/5fbb9168-0dae-11e7-9a57-61ba250d1491.png)  
 - update weight based on unit step function  
-- learning rate: (0, 1]
+- learning rate η: (0, 1] --> requires experimentation to find a good learning rate  
 - steps:  
     1. initialize the weights to 0 or small random numbers  
     2. for each training sample x(i) perform the following steps  
         1. compute the output value y' --> class label  
         2. update the weights: in the case of a wrong prediction, the weights are being pushed towards the direction of the positive or negative target class  
         ![perceptron_weight1](https://cloud.githubusercontent.com/assets/5633774/24132041/a09853b4-0daf-11e7-87e7-67ebfd34fb95.png)  
-
         ![perceptron_weight2](https://cloud.githubusercontent.com/assets/5633774/24132056/b7561de8-0daf-11e7-8ca1-2ec05d47fcae.png)
 - Note: the convergence of the perceptron is only guaranteed if 
     + the two classes are linearly separable
@@ -84,6 +83,14 @@ P 27
 ![cost_fun_derivative](https://cloud.githubusercontent.com/assets/5633774/24162108/ac4c93a4-0e23-11e7-96bf-53aa7f9ece1a.png)  
 ![update_rule](https://cloud.githubusercontent.com/assets/5633774/24162139/d2f598fc-0e23-11e7-8594-4ff36bf0ca66.png)  
 
+
+
+### standardization 
+P 66  
+- gives the data the property of a standard normal distribution  
+- feature scaling for optimal performance  
+- mean of each feature is centered at value **_0_** and the feature column has a standard deviation of **_1_**  
+![standardization](https://cloud.githubusercontent.com/assets/5633774/24179800/ab5f2f4c-0e6e-11e7-9ff8-37c82c4bbbc5.png)  
 
     
  
