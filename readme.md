@@ -59,10 +59,11 @@ P 27
         ![perceptron_weight1](https://cloud.githubusercontent.com/assets/5633774/24132041/a09853b4-0daf-11e7-87e7-67ebfd34fb95.png)  
         ![perceptron_weight2](https://cloud.githubusercontent.com/assets/5633774/24132056/b7561de8-0daf-11e7-8ca1-2ec05d47fcae.png)
 - Note: the convergence of the perceptron is only guaranteed if 
-    + the two classes are linearly separable
+    + the two classes are linearly separable  
         * set a maximum number of passes over the training dataset (epochs)  
         * a threshold for the number of tolerated mis-classifications  
     + the learning rate is sufficiently small  
+- **perceptron algorithm never converges on datasets that aren't perfectly linearly separable, which is why the use of the perceptron algorithm is typically not recommended in practice**    
     
         
 ### adaptive linear neurons --> ADAptive LInear NEuron (Adaline)  
@@ -106,4 +107,19 @@ P 66
 ![standardization](https://cloud.githubusercontent.com/assets/5633774/24179800/ab5f2f4c-0e6e-11e7-9ff8-37c82c4bbbc5.png)  
 
     
- 
+### choosing a classification algorithm  
+P 75  
+- no single classifier works best across all possible scenarios  
+- compare the performance of at least a handful of different learning algorithms to select the best model for the particular problem  
+- the performance of a classifier, computational power as well as predictive power, depends heavily on the underlying data that are available for learning  
+- training a machine learning algorithm  
+    1. selection of features  
+    2. choosing a performance metric  
+    3. choosing a classifier and optimization algorithm  
+    4. evaluating the performance of the model  
+    5. tuning the algorithm  
+
+
+### target labels --> store as integers  
+- for the optimal performance of many machine learning algorithms  
+    
