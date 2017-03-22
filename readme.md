@@ -84,6 +84,19 @@ P 27
 ![update_rule](https://cloud.githubusercontent.com/assets/5633774/24162139/d2f598fc-0e23-11e7-8594-4ff36bf0ca66.png)  
 
 
+### stochastic gradient descent --> large scale machine learning  
+- iterative or on-line gradient descent  
+- an approximation of gradient descent: does not reach the global minimum but an area very close to it  
+- advantage:
+    + reach convergence much faster: because of more frequent weight updates  
+    + can escape shallow local minimum more readily  
+    + can be used for on-line learning: immediately adapt to changes and the training data can be discarded after updating the model if storage space in an issue  
+- requires: 
+    + data in random order --> shuffle the training set for every epoch to prevent cycles  
+    + an adaptive learning rate that decreases over time: c1 / (number_of_iterations + c2)  
+- update the eights incrementally for each training sample  
+![stochastic gradient descent](https://cloud.githubusercontent.com/assets/5633774/24180262/2cb92fd2-0e71-11e7-8c3b-fbdfcde05fd1.png)  
+
 
 ### standardization 
 P 66  
@@ -94,4 +107,3 @@ P 66
 
     
  
-

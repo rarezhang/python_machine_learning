@@ -10,6 +10,7 @@ from matplotlib.colors import ListedColormap
 
 from Perceptron import Perceptron
 from AdalineGD import AdalineGD
+from AdalineSGD import AdalineSGD
 
 
 # --------------- helper methods -------------------
@@ -72,7 +73,7 @@ plt.scatter(X[50:100, 0], X[50:100, 1], color='blue', marker='x', label='versico
 plt.xlabel('petal length')
 plt.ylabel('sepal length')
 plt.legend(loc='upper left')
-# plt.show()
+plt.show()
 
 # train perceptron 
 ppn = Perceptron(eta=0.1, n_iter=10)
@@ -80,14 +81,14 @@ ppn.fit(X, y)
 plt.plot(range(1, len(ppn.errors_) + 1), ppn.errors_,  marker='o')
 plt.xlabel('Epochs')
 plt.ylabel('Number of misclassifications')
-# plt.show()
+plt.show()
 
 # visualize the decision boundaries
 plot_decision_regions(X, y, classifier=ppn)
 plt.xlabel('sepal length [cm]')
 plt.ylabel('petal length [cm]')
 plt.legend(loc='upper left')
-# plt.show()
+plt.show()
 
 
 # ----------------------------------------------------
@@ -141,4 +142,24 @@ plt.show()
 plt.plot(range(1, len(ada.cost_) + 1), ada.cost_, marker='o')
 plt.xlabel('Epochs')
 plt.ylabel('Sum-squared-error')
+plt.show()
+
+
+# ----------------------------------------------
+# P 71
+# test AdalineSGD method 
+
+ada = AdalineSGD(n_iter=15, eta=0.01, random_state=1)
+ada.fit(X_std, y)
+
+plot_decision_regions(X_std, y, classifier=ada)
+plt.title('Adaline - Stochastic Gradient Descent')
+plt.xlabel('sepal length [standardized]')
+plt.ylabel('petal length [standardized]')
+plt.legend(loc='upper left')
+plt.show()
+
+plt.plot(range(1, len(ada.cost_) + 1), ada.cost_, marker='o')
+plt.xlabel('Epochs')
+plt.ylabel('Average Cost')
 plt.show()
