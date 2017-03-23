@@ -3,12 +3,15 @@ chapter 3
 """
 
 import numpy as np 
+import matplotlib.pyplot as plt 
 from sklearn import datasets 
 # from sklearn.cross_validation import train_test_split  # deprecation
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler 
 from sklearn.linear_model import Perceptron 
 from sklearn.metrics import accuracy_score
+
+
 
 from utils import *   # plot_decision_regions 
 
@@ -48,3 +51,23 @@ plt.xlabel('petal length [standardized]')
 plt.ylabel('petal width [standardized]') 
 plt.legend(loc='upper left')
 plt.show()
+
+
+# logistic function 
+# P 82
+
+
+# plot the sigmod function  
+z = np.arange(-7, 7, 0.1)
+phi_z = sigmod(z)  # from utils 
+
+plt.plot(z, phi_z)
+plt.axvline(0.0, color='k')
+plt.axhspan(0.0, 1.0, facecolor='1.0', alpha=1.0, ls='dotted')
+plt.axhline(y=0.5, ls='dotted', color='k')
+plt.yticks([0.0, 0.5, 1.0])
+plt.ylim(-0.1, 1.1)
+plt.xlabel('z')
+plt.ylabel('$\phi (z)$')
+plt.show() 
+

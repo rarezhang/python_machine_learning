@@ -123,3 +123,26 @@ P 75
 ### target labels --> store as integers  
 - for the optimal performance of many machine learning algorithms  
     
+### logistic regression  
+P 454  
+- characteristics  
+    + linear: performs well on linearly separable classes  
+    + binary classification  
+    + model for classification not regression  
+    + can estimate the class-membership probability  
+- odds ratio:  
+    + ```p / (1-p)```  
+    + p: the probability of the positive event  
+- logit function: 
+    + the logarithm of the odds ratio (log-odds)  
+    + ```logit(p) = log[p / (1-p)]```  
+- linear relation between feature values and the log-odds:  
+    + ```logit[p(y=1|x)]= w*x```  
+    + ```p(y=1|x)```: the conditional probability --> a sample belongs to class 1 given its feature **x**  
+- logistic function (sigmoid function)  
+    + ![logistic function](https://cloud.githubusercontent.com/assets/5633774/24224530/da415f7e-0f18-11e7-8e12-0d06759edad2.png)  
+    + ```z=w*x```   
+- convert predicted probability into a binary outcome:
+    + ![binary_outcome](https://cloud.githubusercontent.com/assets/5633774/24224793/7274109c-0f1a-11e7-8000-20db892674bc.png)  
+    
+
