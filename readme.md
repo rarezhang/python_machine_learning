@@ -122,6 +122,32 @@ P 75
 
 ### target labels --> store as integers  
 - for the optimal performance of many machine learning algorithms  
+
+    
+    
+    
+### overfitting & underfitting  
+P 90  
+![under_over_fitting](https://cloud.githubusercontent.com/assets/5633774/24261285/c379a60c-0fb3-11e7-9d91-f9e4144ad923.png)  
+- overfitting:  
+    + definition: a model performs well on training data but does not generalize well to unseen data (test data)  
+    + model has a high variance: too many parameters that lead to a model that is too  complex   
+- underfitting:  
+    + model is not complex enough to capture the pattern in the training data --> low performance on unseen data  
+    + model has a high bias  
+- variance: measures the consistency of the model prediction (model is sensitive to the randomness)  
+- bias: measure of the systematic error that is not due to randomness (how far off the predictions are from the correct values in general)  
+    
+    
+### regularization  
+P 91  
+- tune the model via **regularization**:  
+    + find a good bias-variance trade-off (model complex)  
+    + handle collinearity (high correlation among features)  
+- introduce additional information (bias) to penalize extreme parameter weights  
+    + requirement: for regularization to work properly, need to ensure that all features are on comparable scales --> feature standardization  
+    + L1 regularization: ![l1](https://cloud.githubusercontent.com/assets/5633774/24262011/ff1bfafa-0fb5-11e7-8f9c-045f9f6e2262.png)  
+    + L2 regularization: ![l2](https://cloud.githubusercontent.com/assets/5633774/24262041/16d22cf0-0fb6-11e7-8113-0eba38cbae3b.png)  
     
 ### logistic regression  
 P 454  
@@ -144,5 +170,17 @@ P 454
     + ```z=w*x```   
 - convert predicted probability into a binary outcome:
     + ![binary_outcome](https://cloud.githubusercontent.com/assets/5633774/24224793/7274109c-0f1a-11e7-8000-20db892674bc.png)  
+- cost function & the cost for the classification for different value of (φ)z:
+    ![cost_fun](https://cloud.githubusercontent.com/assets/5633774/24259096/1122f91e-0fad-11e7-84e5-e67f050fb5fb.png)  
+    ![cost_fun_single](https://cloud.githubusercontent.com/assets/5633774/24259008/bf5a48bc-0fac-11e7-86e2-b64eb655d56a.png)  
+    ![cost_fun_logi](https://cloud.githubusercontent.com/assets/5633774/24258981/a06eb956-0fac-11e7-9e53-f5333d01073c.png)  
+- cost function with regularization  
+    + λ: L2 regularization parameter --> L2 shrinkage | weight decay  
+    ![cost_fun_l2](https://cloud.githubusercontent.com/assets/5633774/24262419/2d388e20-0fb7-11e7-8193-6b926f5c3a8d.png)  
+    + C: ```C = 1 / λ``` --> decreasing the value of the inverse regularization parameter C means that we are increasing the regularization strength  
+    ![c_l2](https://cloud.githubusercontent.com/assets/5633774/24262636/ec525e58-0fb7-11e7-9055-791fd4d5d4e3.png)  
+
+    
+    
     
 

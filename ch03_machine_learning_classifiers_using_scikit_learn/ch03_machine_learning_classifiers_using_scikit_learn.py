@@ -7,13 +7,14 @@ import matplotlib.pyplot as plt
 from sklearn import datasets 
 # from sklearn.cross_validation import train_test_split  # deprecation
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler 
-from sklearn.linear_model import Perceptron 
+from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
 
-
+from sklearn.linear_model import Perceptron 
+from sklearn.linear_model import LogisticRegression
 
 from utils import *   # plot_decision_regions 
+
 
 # P 76 
 # import data from sklearn 
@@ -71,3 +72,38 @@ plt.xlabel('z')
 plt.ylabel('$\phi (z)$')
 plt.show() 
 
+
+
+# ------------------- logistic regression ----------------
+# logistic regression
+lr = LogisticRegression(C=1000.0, random_state=0)  # C=1/lambda, lambda: L2regularizatio parameter
+lr.fit(X_train_std, y_train)
+
+plot_decision_regions(X_combined_std, y_combined, classifier=lr, test_idx=range(105, 150))
+
+plt.xlabel('petal length [standardized]')
+plt.ylabel('petal width [standardized]')
+plt.legend(loc='upper left')
+plt.show()
+
+# get the class membership probability 
+c = lr.classes_  # class names 
+p = lr.predict_proba(X_test_std[0, :])  # probability of each class  
+print(f' classes: {c} \n probability: {p}')
+
+
+# C: inverse regularization parameter 
+weights, params = [], []
+for c in range(-5,5):
+    lr = LogisticRegression(C=10**c, random_state=0)
+    lr.fit(X_train_std, y_train)
+    weights.append(lr.coef_[1])
+    params.append(10**c)
+weights = np.array(weights)
+plt.plot(params, weights[:, 0], label='petal length')
+plt.plot(params, weights[:, 1], linestyle='--', label='petal width')
+plt.ylabel('weight coefficient')
+plt.xlabel('C')
+plt.legend(loc='upper left')
+plt.xscale('log')
+plt.show()
