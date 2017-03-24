@@ -12,6 +12,7 @@ from sklearn.metrics import accuracy_score
 
 from sklearn.linear_model import Perceptron 
 from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
 
 from utils import *   # plot_decision_regions 
 
@@ -106,4 +107,29 @@ plt.ylabel('weight coefficient')
 plt.xlabel('C')
 plt.legend(loc='upper left')
 plt.xscale('log')
+plt.show()
+
+
+
+# ------------------- support vector machine ----------------
+svm = SVC(kernel='linear', C=1.0, random_state=0)
+svm.fit(X_train_std, y_train)
+
+plot_decision_regions(X_combined_std, y_combined, classifier=svm, test_idx=range(105, 150))
+plt.xlabel('petal length [standardized]')
+plt.ylabel('petal width [standardized]')
+plt.legend(loc='upper left')
+plt.show()
+
+
+# ----------- create non-linear data --------------------
+np.random.seed(0)
+X_xor = np.random.randn(200, 2)
+y_xor = np.logical_xor(X_xor[:, 0] > 0, X_xor[:, 1] > 0)
+y_xor = np.where(y_xor, 1, -1)
+
+plt.scatter(X_xor[y_xor==1, 0], X_xor[y_xor==1, 1], c='b', marker='x', label='1')
+plt.scatter(X_xor[y_xor==-1, 0], X_xor[y_xor==-1, 1], c='r', marker='s', label='-1')
+plt.ylim(-3.0)
+plt.legend()
 plt.show()

@@ -181,6 +181,56 @@ P 454
     ![c_l2](https://cloud.githubusercontent.com/assets/5633774/24262636/ec525e58-0fb7-11e7-9055-791fd4d5d4e3.png)  
 
     
-    
-    
+### support vector machines  
+P 94  
+- SVM: maximum margin classification  
+![SVM_margin](https://cloud.githubusercontent.com/assets/5633774/24305291/a7910338-1079-11e7-8abe-777219081137.png)  
+    + optimization objective: maximize the margin --> tend to have a lower generalization error (models with small margins are more prone to overfitting)  
+    + margin: distance between the separating hyperplane (decision boundary)  
+        * positive hyperplane: ![positive_hyperplane](https://cloud.githubusercontent.com/assets/5633774/24305422/1fb16042-107a-11e7-894b-171e16fbd3e6.png)  
+        * negative hyperplane: ![negative_hyperplane](https://cloud.githubusercontent.com/assets/5633774/24305436/301ed0e0-107a-11e7-8615-f9eb6085e971.png)  
+        * subtract two hyperplanes: ![subtract_hyperplane](https://cloud.githubusercontent.com/assets/5633774/24305521/8019ea76-107a-11e7-9042-78374a27ec3c.png)  
+        ![subtract_hyperplane](https://cloud.githubusercontent.com/assets/5633774/24305573/b117943e-107a-11e7-8ced-ad6a35e89962.png)  
+        * left side: distance between the positive and negative hyperplane --> the margin to maximize  
+        * right side: the objective function of the SVM --> in practice: use quadratic programming ![svm_goal](https://cloud.githubusercontent.com/assets/5633774/24305885/c3ea45b0-107b-11e7-923f-44f7430b7a30.png)  
+        * all negative samples should fall on one side of the negative hyperplane; all the positive samples should fall behind the positive hyperplane  
+        ![image](https://cloud.githubusercontent.com/assets/5633774/24305751/54238dfe-107b-11e7-8014-624b7e1b8f5e.png)  
+    + support vectors: the training samples that are closest to this hyperplane  
+- slack variable:
+    + soft-margin classification  
+    + linear constraints need to be relaxed for nonlinearly separable data: allow convergence of the optimization in the presence of mis-classifications under the appropriate cost penalization  
+    ![margin_slack_variable](https://cloud.githubusercontent.com/assets/5633774/24306051/63ee8cb0-107c-11e7-87a0-72ad6fd7ab8b.png)  
+    + linear constraints with slack variable:  
+    ![linear constraints](https://cloud.githubusercontent.com/assets/5633774/24306178/e1bced80-107c-11e7-91db-3cc55dbc983a.png)
+    + objective function with slack variable:  
+    ![objective_fun](https://cloud.githubusercontent.com/assets/5633774/24306222/18b46ade-107d-11e7-936c-7498ea739396.png)  
+    + C: control the penalty for misclassification --> control the width of the margin --> tune the bias-variance trade-off  
+    ![svm_C](https://cloud.githubusercontent.com/assets/5633774/24306426/c514add4-107d-11e7-8f5d-6c200bc4d475.png)  
+        * large C: large error penalties  
+        * small C: less strict about misclassification errors  
+- SVM vs logistic regression  
+    + yield similar results  
+    + logistic regression: 
+        * maximize the conditional likelihoods of the training data --> prone to outliers than SVMs  
+        * simpler model  
+        * can be easily updated --> streaming data  
 
+        
+### kernel SVM  
+- SVM can be easily kernelized to solve nonlinear classification  
+- create nonlinear combinations of the original features  
+    + project original feature onto a higher dimensional space --> on the higher dimensional space: the feature is linearly separable  
+    + mapping function: φ(x1, x2)  
+      
+
+### alternative implementations in scikit-learn !!!
+- stochastic gradient descent version 
+    * when datasets are too large to fit into computer memory  
+    * support online learning  
+    ```
+    >>> from sklearn.linear_model import SGDClassifier
+    >>> ppn = SGDClassifier(loss='perceptron')
+    >>> lr = SGDClassifier(loss='log')
+    >>> svm = SGDClassifier(loss='hinge')
+    ```
+       
