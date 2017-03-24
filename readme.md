@@ -220,8 +220,18 @@ P 94
 - SVM can be easily kernelized to solve nonlinear classification  
 - create nonlinear combinations of the original features  
     + project original feature onto a higher dimensional space --> on the higher dimensional space: the feature is linearly separable  
-    + mapping function: φ(x1, x2)  
-      
+    + mapping function: φ(x1, x2) --> could be very expensive  
+    ![kernel_projection](https://cloud.githubusercontent.com/assets/5633774/24315749/3f0c4a02-10a6-11e7-89d3-76c30c6df6c9.png)  
+        * kernel function:  
+        ![kernel_function](https://cloud.githubusercontent.com/assets/5633774/24315920/710b1a96-10a7-11e7-821d-d9fe2013d2e4.png)  
+    + widely used kernel:
+        * RBF kernel: Radial Basis Function kernel  
+        ![rbf](https://cloud.githubusercontent.com/assets/5633774/24315964/bbfd083e-10a7-11e7-9ce8-10e0c8e337a6.png)  
+        ![rbf_parameter](https://cloud.githubusercontent.com/assets/5633774/24315976/d28ce6be-10a7-11e7-930c-443e5023a01b.png)  
+ 
+        
+        
+        
 
 ### alternative implementations in scikit-learn !!!
 - stochastic gradient descent version 
