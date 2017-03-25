@@ -4,6 +4,7 @@ reading notes of [this book](https://www.amazon.com/dp/B00YSILNL0/ref=dp-kindle-
 
 # Reading notes 
 
+
 ### three different types of machine learning  
 P 27  
 - supervised learning  
@@ -43,6 +44,21 @@ P 27
 - evaluating models and predicting unseen data instances  
     + how well model performs on the unseen data --> generalization error  
     + predict new, future data  
+
+    
+
+### algorithms alternative implementations in scikit-learn !!!
+- stochastic gradient descent version 
+    * when datasets are too large to fit into computer memory  
+    * support online learning  
+    ```
+    >>> from sklearn.linear_model import SGDClassifier
+    >>> ppn = SGDClassifier(loss='perceptron')
+    >>> lr = SGDClassifier(loss='log')
+    >>> svm = SGDClassifier(loss='hinge')
+    ```    
+    
+    
     
 ### perceptron  
 ![perceptron](https://cloud.githubusercontent.com/assets/5633774/24132180/c8886886-0db0-11e7-8885-a61f28592f56.png)  
@@ -71,7 +87,9 @@ P 27
 - update weight based on a linear activation function --> the identity function of the net input  
 ![adaline_weight](https://cloud.githubusercontent.com/assets/5633774/24161375/7604941a-0e21-11e7-8a27-acb2b706ec9e.png)  
 - quantizer: used to predict the class labels (similar to the unit step function)  
-      
+
+
+
 ### cost function & gradient descent  
 - an objective function: to be optimized during the learning process  
 - e.g., sum of squared errors (SSE)  
@@ -228,19 +246,42 @@ P 94
         * RBF kernel: Radial Basis Function kernel  
         ![rbf](https://cloud.githubusercontent.com/assets/5633774/24315964/bbfd083e-10a7-11e7-9ce8-10e0c8e337a6.png)  
         ![rbf_parameter](https://cloud.githubusercontent.com/assets/5633774/24315976/d28ce6be-10a7-11e7-930c-443e5023a01b.png)  
- 
-        
-        
-        
+        * γ (gamma in sklearn: control overfitting): a cut-off parameter for the Gaussian sphere (increase γ will the influence of the training samples --> small γ: softer decision boundary; large γ: tighter boundary --> likely have a high generalization error on unseen data)  
+            
 
-### alternative implementations in scikit-learn !!!
-- stochastic gradient descent version 
-    * when datasets are too large to fit into computer memory  
-    * support online learning  
-    ```
-    >>> from sklearn.linear_model import SGDClassifier
-    >>> ppn = SGDClassifier(loss='perceptron')
-    >>> lr = SGDClassifier(loss='log')
-    >>> svm = SGDClassifier(loss='hinge')
-    ```
-       
+
+### decision tree learning  
+P 105  
+- decision tree:      
+    + break down data by making decisions based on a series of questions --> good interpret-ability  
+    + split the data on the feature that results in the largest information gain (IG)  
+    + prune: prune the tree by setting a limit for the maximal depth of the tree  
+    + boundaries: 
+        * can build complex decision boundaries  
+        * deeper the decision tree, the more complex the decision boundary become --> result in overfitting  
+    + feature scaling is not requirement for decision tree algorithms  
+- objective function: maximize the information gain at each split  
+![decision_tree_goal](https://cloud.githubusercontent.com/assets/5633774/24317306/123195c0-10b3-11e7-99ad-768abc52dc41.png)  
+    + f: the feature to perform the split  
+    + I: impurity measure  
+    + Dp: the dataset of the parent; Dj: the dataset of the j-th child node  
+    + Np: total number of samples at the parent node; Nj: the number of samples in the j-th child node  
+- information gain (IG)  
+    + split the nodes at the most informative features  
+    + the difference between the impurity of the parent node and the sum of the child impurities --> the lower the impurity of the child nodes, the larger the information gain  
+- binary decision tree --> reduce the combinatorial search space  
+![binary_decision_tree](https://cloud.githubusercontent.com/assets/5633774/24317455/67413664-10b4-11e7-86ca-eaa4001984d2.png)  
+- commonly used impurity measures:  
+    + Entropy:  
+    ![entropy](https://cloud.githubusercontent.com/assets/5633774/24317526/26670230-10b5-11e7-8f74-4f3b96ba04b9.png)  
+        * ```p(i|t)```: the proportion of the samples that belongs to class c for a particular node t --> ```entropy=0``` if all samples at a node belong to the same class  
+        * the entropy is maximal if there is a uniform class distribution --> all belongs to one class  
+        * entropy criterion attempts to maximize the mutual information  
+    + Gini index:  
+    ![gini](https://cloud.githubusercontent.com/assets/5633774/24317595/db784f44-10b5-11e7-90aa-566855365419.png)  
+        * minimize the probability of misclassification  
+        * Gini index is maximal if the classes are perfectly mixed      
+    + classification error  
+    ![classification_error](https://cloud.githubusercontent.com/assets/5633774/24317627/4c5714fc-10b6-11e7-9fe9-dfda3766940b.png)  
+        * useful criterion for **pruning**, __not__ for growing a decision tree  
+    
