@@ -28,7 +28,18 @@ P 27
     + goal: develop a system (agent) that improves its performance based on interactions with the environment --> solving interactive problems  
     + maximizes the **_reward_** via an exploratory trial-and-error approach or deliberative planning  
         * reward signal: not the correct ground truth label or value, but a measure of **how well the action was measured** by a reward function  
-    
+
+        
+        
+### parametric V.S. non-parametric models  
+P 118  
+- parametric model  
+    + estimate parameters from the training dataset to learn a function that can classify new data points without requiring the original training dataset anymore
+        * e.g., perceptron, logistic regression, linear SVM  
+    + the number of parameters grows with the training data
+        * e.g., decision tree, random forest, kernel SVM, KNN   
+        
+        
 ### predictive modeling (work flow diagram)  
 ![work flow diagram](https://cloud.githubusercontent.com/assets/5633774/24131161/1aa33044-0daa-11e7-896b-15da846f6657.png)
 - preprocessing:  
@@ -317,3 +328,20 @@ P 115
         3. repeat steps 1-2 *__k__* times  
         4. aggregate the prediction by each tree to assign the class label by **majority vote**  
         
+        
+        
+### k-nearest neighbors  
+- KNN:  
+    ![knn](https://cloud.githubusercontent.com/assets/5633774/24327715/8fdfb5d0-118d-11e7-9f4c-19716f66a0b2.png)  
+    + lazy learner: doesn't learn a discriminative function from the training data but memorizes the training dataset instead  
+        * classifier immediately adapts as new training data come in  
+        * computational complexity grows linearly with the number of samples  
+        * cannot discard training samples --> need large storage space for large datasets  
+    + very susceptible to overfitting due to the **curse of dimensionality** --> the feature space becomes increasingly sparse for an increasing number of dimensions of a fixed-size training dataset --> feature selection or dimensionality reduction  
+    + non-parametric model --> instance-based learning --> lazy learning: no cost during the learning process  
+    + three steps:  
+        1. choose the number of *__k__* and a distance metric  
+        2. find the *__k__* nearest neighbors of the sample that need to classify  
+        3. assign the class label by majority vote  
+    
+    
