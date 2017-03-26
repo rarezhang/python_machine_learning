@@ -189,14 +189,15 @@ P 91 P 138
     ![nor-l1](https://cloud.githubusercontent.com/assets/5633774/24333131/f016b23a-1207-11e7-88c1-8bfa796b0caa.png)  or  ![l1](https://cloud.githubusercontent.com/assets/5633774/24262011/ff1bfafa-0fb5-11e7-8f9c-045f9f6e2262.png)  
         * encourage **sparsity**: yields sparse feature vector --> most feature weights will be zero  
         * **sparsity** is useful in practice if dataset has high-dimension --> many features are irrelevant  
-        * especially useful when there are more irrelevant dimensions than samples --> can e understand as a technique for feature selection  
-        * 
+        * especially useful when there are more irrelevant dimensions than samples --> can be understand as a technique for feature selection  
     + L2 regularization:  
     ![regularization-l2](https://cloud.githubusercontent.com/assets/5633774/24333512/f6c964dc-120d-11e7-8777-b90b68140f98.png)  
     ![nor-l2](https://cloud.githubusercontent.com/assets/5633774/24333135/fe8ed982-1207-11e7-89c8-c2f914e446dc.png)  or  ![l2](https://cloud.githubusercontent.com/assets/5633774/24262041/16d22cf0-0fb6-11e7-8113-0eba38cbae3b.png)  
         
     
-    
+### dimensionality reduction  
+- feature selection  
+- feature extraction          
     
     
 ### logistic regression  
