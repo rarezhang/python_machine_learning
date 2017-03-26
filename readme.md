@@ -156,11 +156,16 @@ P 75
     
     
 ### overfitting & underfitting  
-P 90  
+P 90 P 137  
 ![under_over_fitting](https://cloud.githubusercontent.com/assets/5633774/24261285/c379a60c-0fb3-11e7-9d91-f9e4144ad923.png)  
 - overfitting:  
     + definition: a model performs well on training data but does not generalize well to unseen data (test data)  
     + model has a high variance: too many parameters that lead to a model that is too  complex   
+    + common solution:
+        1. collect more training data  
+        2. introduce a penalty for complexity via regularization  
+        3. choose a simpler model with fewer parameters  
+        4. reduce the dimensionality of the data  
 - underfitting:  
     + model is not complex enough to capture the pattern in the training data --> low performance on unseen data  
     + model has a high bias  
@@ -169,14 +174,27 @@ P 90
     
     
 ### regularization  
-P 91  
+P 91 P 138  
+- regularization: 
+    + add a penalty term to the cost function to encourage smaller weights --> penalize large weights  
+    + by increasing the regularization strength via the regularization parameter λ --> shrink the weights towards zero and decrease the dependence of our model on the training data  
+
 - tune the model via **regularization**:  
     + find a good bias-variance trade-off (model complex)  
     + handle collinearity (high correlation among features)  
 - introduce additional information (bias) to penalize extreme parameter weights  
     + requirement: for regularization to work properly, need to ensure that all features are on comparable scales --> feature standardization  
-    + L1 regularization: ![l1](https://cloud.githubusercontent.com/assets/5633774/24262011/ff1bfafa-0fb5-11e7-8f9c-045f9f6e2262.png)  
-    + L2 regularization: ![l2](https://cloud.githubusercontent.com/assets/5633774/24262041/16d22cf0-0fb6-11e7-8113-0eba38cbae3b.png)  
+    + L1 regularization:  
+    ![regularization-l1](https://cloud.githubusercontent.com/assets/5633774/24333600/b39a90f8-120f-11e7-9f14-6981dfa131ae.png)  
+    ![nor-l1](https://cloud.githubusercontent.com/assets/5633774/24333131/f016b23a-1207-11e7-88c1-8bfa796b0caa.png)  or  ![l1](https://cloud.githubusercontent.com/assets/5633774/24262011/ff1bfafa-0fb5-11e7-8f9c-045f9f6e2262.png)  
+        * encourage **sparsity**: yields sparse feature vector --> most feature weights will be zero  
+        * **sparsity** is useful in practice if dataset has high-dimension --> many features are irrelevant  
+        * especially useful when there are more irrelevant dimensions than samples --> can e understand as a technique for feature selection  
+        * 
+    + L2 regularization:  
+    ![regularization-l2](https://cloud.githubusercontent.com/assets/5633774/24333512/f6c964dc-120d-11e7-8777-b90b68140f98.png)  
+    ![nor-l2](https://cloud.githubusercontent.com/assets/5633774/24333135/fe8ed982-1207-11e7-89c8-c2f914e446dc.png)  or  ![l2](https://cloud.githubusercontent.com/assets/5633774/24262041/16d22cf0-0fb6-11e7-8113-0eba38cbae3b.png)  
+        
     
     
     
@@ -345,3 +363,45 @@ P 115
         3. assign the class label by majority vote  
     
     
+    
+### missing data  
+- missing value  
+    + blank spaces  
+    + placeholder strings: NaN  
+- why need to take care of missing value:  
+    + most computational tools are unable to handle missing values  
+    + computational tools will produce unpredictable results  
+- handle missing values:  
+    + remove corresponding features (columns) or samples (rows) with missing values  
+        * remove too many samples --> make a reliable analysis impossible  
+        * lose valuable information --> classifier cannot discriminate between classes  
+    + interpolation techniques: imputing missing values  
+        * mean imputation: replace the missing value by the mean value of the entire feature column  
+        * median imputation: replace the missing value by the median value of the entire feature column  
+        * most_frequent imputation: replaces the missing values by the most frequent values  
+- handle categorical data:  
+    + nominal features  
+    + ordinal features: categorical values that can be sorted or ordered  
+        * mapping ordinal features: convert the categorical string values into integers  
+    + encoding class labels: class labels are required to encoded as integer values  
+    + one-hot encoding on nominal features: create a new dummy feature for each unique value in the nominal feature column  
+    
+
+    
+### feature scaling  
+- majority of machine learning and optimization algorithms behave much better if features are on the same scale  
+- feature scaling:  
+    + normalization: 
+        * the rescaling of the features to a range of ```[0,1]``` --> special case of min-max scaling  
+        * apply the min-max scaling to each feature column:  
+        ![normalization](https://cloud.githubusercontent.com/assets/5633774/24332835/2f7b0ef4-1202-11e7-8c62-eb3c5effcb8d.png)  
+    + standardization  
+        * center the feature columns at mean ```0``` with standard deviation ```1``` --> feature columns take the form of a normal distribution --> easier for machine learning algorithm to learn the weights  
+        * maintains useful information about outliers --> less sensitive to outliers (in contrast to min-max scaling)  
+        * apply the standard scaling to each feature column:  
+        ![standardization](https://cloud.githubusercontent.com/assets/5633774/24332983/f62d94a2-1204-11e7-9bf4-c9446bab6ecb.png)  
+                    
+
+
+    
+        
