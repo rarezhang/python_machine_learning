@@ -167,6 +167,9 @@ P 91
     + L1 regularization: ![l1](https://cloud.githubusercontent.com/assets/5633774/24262011/ff1bfafa-0fb5-11e7-8f9c-045f9f6e2262.png)  
     + L2 regularization: ![l2](https://cloud.githubusercontent.com/assets/5633774/24262041/16d22cf0-0fb6-11e7-8113-0eba38cbae3b.png)  
     
+    
+    
+    
 ### logistic regression  
 P 454  
 - characteristics  
@@ -284,4 +287,33 @@ P 105
     + classification error  
     ![classification_error](https://cloud.githubusercontent.com/assets/5633774/24317627/4c5714fc-10b6-11e7-9fe9-dfda3766940b.png)  
         * useful criterion for **pruning**, __not__ for growing a decision tree  
+
+        
+### GraphViz program  
+P 114  
+- open source graph visualization software  
+- scikit-learn is allows to export the decision tree as a ```.dot``` file after training, which can be visualized using the GraphViz program  
+```
+dot -Tpng tree.dot -o tree.png
+```
+
+
+### random forests 
+P 115  
+- random forests:  
+    + ensemble of decision tree: combining weak learners to strong learners  
+    + good classification performance, scalability, and ease of use  
+    + less hyper-parameters  
+        * number of trees: *__k__* --> larger: better performance but increased computational cost  
+        * size of bootstrap sample: *__n__* --> control the bias-variance trade off; larger: decrease the randomness==likely to overfitting  
+        * number of features: *__d__*: smaller than the total number fo features in the training set (e.g., d=m^0.5)  
+    + typically don't need to prune the random forest --> robust to noise  
     
+    + four steps:  
+        1. draw a random **bootstrap** sample of size *__n__* (randomly choose n samples from the training set with replacement)  
+        2. grow a decision tree from the bootstrap sample. At each node:  
+            1. randomly select *__d__* features without replacement  
+            2. split the node using the feature that provides the best split according to the objective function (e.g., maximize information gain)  
+        3. repeat steps 1-2 *__k__* times  
+        4. aggregate the prediction by each tree to assign the class label by **majority vote**  
+        
