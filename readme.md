@@ -232,8 +232,8 @@ P 152
     + data compression with the goal of maintaining most of the relevant information  
     + improve computational efficiency  
     + reduce the curse of dimensionality (especially with non-regularized models)  
-- principal component analysis (**PCA**): 
-    + for unsupervised data compression  
+- principal component analysis (**PCA**):  
+    + for **unsupervised** data compression  
     + identify patterns in data based on the correlation between features  
     + aims to find the directions of maximum variance in high-dimensional data and projects it onto a new subspace with equal or fewer dimensions  
     + the orthogonal axes (principal components) of the new subspace: the directions of maximum variance given the constraint that the new feature axes are orthogonal to each other as illustrated  
@@ -246,10 +246,62 @@ P 152
         4. select **k** eigenvectors that correspond to the **k** largest eigenvalues --> **k**: the dimensionality of the new feature subspace (k<=d)  
         5. construct a projection matrix **w** from the top **k** eigenvectors  
         6. transform the **d**-dimensional input dataset X using the projection matrix **W** to obtain the new k-dimensional feature subspace  
-- linear discriminant analysis (**LDA**): supervised dimensionality reduction technique for maximizing class separability  
-- kernel principal component analysis: nonlinear dimensionality reduction  
-        
-
+- linear discriminant analysis (**LDA**):  
+    + **supervised** dimensionality reduction technique for maximizing class separability  
+    + find the feature subspace that optimizes class separability  
+    + assumptions:  
+        1. data is normally distributed  
+        2. the classes have identical covariance matrices  
+        3. features are statistically independent of each other  
+        * Note: even if one or more of those assumptions are slightly violated, LDA for dimensionality reduction can still work reasonably well  
+    + key steps:
+        1. standardize the ```d```-dimensional dataset (```d```: number of features)  
+        2. for each class, compute the ```d```-dimensional mean vector  
+        ![mean_vector](https://cloud.githubusercontent.com/assets/5633774/24369004/7634f046-12d7-11e7-8e09-91c853e31449.png)  
+        3. construct the between-class scatter matrix ```Sb``` and the within-class scatter matrix ```Sw```  
+        individual scatter matrices:  
+        ![individual_scatter_matrix](https://cloud.githubusercontent.com/assets/5633774/24369372/a10415a8-12d8-11e7-87db-4c553c834878.png)  
+        within-class scatter matrix:  
+        ![within-class scatter matrix](https://cloud.githubusercontent.com/assets/5633774/24369439/d42d738e-12d8-11e7-81d8-133ab65f6332.png)  
+        normalized scatter matrix:  
+        ![normalized scatter matrix](https://cloud.githubusercontent.com/assets/5633774/24369825/1ac72ea6-12da-11e7-897c-f16dc63f1db2.png)  
+        between class scatter matrix:  
+        ![between-class scatter matrix](https://cloud.githubusercontent.com/assets/5633774/24370291/c3ef2c76-12db-11e7-8f7b-39c4410c7e03.png)  
+        4. compute the eigenvectors and corresponding eigenvalues of the matrix ```(Sw)^(-1)*(Sb)```  
+        5. choose the k eigenvectors that correspond to the ```k``` largest eigenvalues to construct a ```d x k``` -dimensional transformation matrix ```W``` ; the eigenvectors are the columns of this matrix  
+        6. project the samples onto the new feature subspace using the transformation matrix ```W```  
+- kernel principal component analysis (kernel PCA):  
+    + nonlinear dimensionality reduction  
+    + transform data that is not linearly separable onto a new, lower-dimensional subspace that is suitable for linear classifiers  
+    + kernel PCA: (computationally expensive)
+        * perform a nonlinear mapping --> transforms the data onto a higher-dimensional space 
+        * use standard PCA in this higher-dimensional space to project the data back onto a lower-dimensional space <-- where the samples can be separated by a linear classifier
+    + kernel trick (compute on the original feature space)  
+        * compute covariance between two features (standardized feature)  
+        ![cov_between_features](https://cloud.githubusercontent.com/assets/5633774/24373096/19aa7afe-12e5-11e7-8627-b16b4b6de210.png)  
+        * general equation to calculate the covariance matrix  
+        ![covariance matrix](https://cloud.githubusercontent.com/assets/5633774/24373181/62845a4c-12e5-11e7-86aa-83345f492202.png)  
+        * new covariance matrix: replace the dot products between samples in the original feature space by the nonlinear feature combinations via **φ**  
+        ![kernel trick](https://cloud.githubusercontent.com/assets/5633774/24373251/950484b0-12e5-11e7-8100-2efe11710979.png)  
+        the matrix notation of the new covariance matrix:  
+        ![kernel_trick_matrix_notation](https://cloud.githubusercontent.com/assets/5633774/24373869/bdb91784-12e7-11e7-82dc-82156490fb31.png)  
+        the eigenvector equation:  
+        ![eigenvector equation](https://cloud.githubusercontent.com/assets/5633774/24373981/1eb4c768-12e8-11e7-995c-f25e3e45f32a.png)  
+        since:  
+        ![eigenvector](https://cloud.githubusercontent.com/assets/5633774/24374015/37de54e8-12e8-11e7-9c3e-9a89ecb58549.png)  
+        can get:  
+        ![image](https://cloud.githubusercontent.com/assets/5633774/24374049/53fbbc4c-12e8-11e7-8610-f2b47ad03099.png)  
+        multiply it by φ(X) on both sides:  
+        ![image](https://cloud.githubusercontent.com/assets/5633774/24374092/710c3a6e-12e8-11e7-9b67-78c232b9e32b.png)  
+        * get the similarity kernel matrix  
+        ![similarity kernel matrix](https://cloud.githubusercontent.com/assets/5633774/24373516/6af982a0-12e6-11e7-8221-4b915747d3f7.png)  
+    + commonly used kernels:  
+        * polynomial kernel:  
+        ![polynomial kernel](https://cloud.githubusercontent.com/assets/5633774/24374374/6f9d22f0-12e9-11e7-91e1-5e68b6f6fa8a.png)  
+        * hyperbolic tangent kernel (sigmoid):  
+        ![sigmoid kernel](https://cloud.githubusercontent.com/assets/5633774/24374391/80ac8572-12e9-11e7-8a54-d064911b3d79.png)  
+        * Radial Basis Function (RBF) or Gaussian kernel:  
+        ![rbf kernel](https://cloud.githubusercontent.com/assets/5633774/24374408/95539588-12e9-11e7-8717-a508faa58666.png)  
     
 ### assess feature importance  
     + use random forest: measure feature importance as the averaged impurity decrease --> computed from all decision trees in the forest without making any assumption whether the data is linearly separable or not   
