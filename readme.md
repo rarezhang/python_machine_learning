@@ -1,6 +1,6 @@
 # Python Machine Learning  
 
-reading notes of [this book](https://www.amazon.com/dp/B00YSILNL0/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1) 
+reading notes of **[Python Machine Learning](https://www.amazon.com/dp/B00YSILNL0/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1)** 
 
 # Reading notes 
 
