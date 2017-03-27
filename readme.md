@@ -153,7 +153,10 @@ P 75
 - for the optimal performance of many machine learning algorithms  
 
     
-    
+### greedy algorithms V.S. exhaustive search algorithms  
+P 144  
+- greedy algorithm: make locally optimal choices at each stage of a combinatorial search problem and generally yield a suboptimal solution --> allow for a less complex solution, computationally efficient  
+- exhaustive search algorithm: evaluate all possible combinations and are guaranteed to find the optimal solution --> often not computationally feasible  
     
 ### overfitting & underfitting  
 P 90 P 137  
@@ -178,7 +181,6 @@ P 91 P 138
 - regularization: 
     + add a penalty term to the cost function to encourage smaller weights --> penalize large weights  
     + by increasing the regularization strength via the regularization parameter λ --> shrink the weights towards zero and decrease the dependence of our model on the training data  
-
 - tune the model via **regularization**:  
     + find a good bias-variance trade-off (model complex)  
     + handle collinearity (high correlation among features)  
@@ -194,10 +196,31 @@ P 91 P 138
     ![regularization-l2](https://cloud.githubusercontent.com/assets/5633774/24333512/f6c964dc-120d-11e7-8777-b90b68140f98.png)  
     ![nor-l2](https://cloud.githubusercontent.com/assets/5633774/24333135/fe8ed982-1207-11e7-89c8-c2f914e446dc.png)  or  ![l2](https://cloud.githubusercontent.com/assets/5633774/24262041/16d22cf0-0fb6-11e7-8113-0eba38cbae3b.png)  
         
-    
+
+
+        
+        
 ### dimensionality reduction  
+p 143  
 - feature selection  
-- feature extraction          
+    + select a subset of the original features  
+    + Sequential feature selection: greedy search algorithms  
+        * reduce an initial d-dimensional feature space to a k-dimensional feature subspace where k < d  
+        * motivation: automatically select a subset of features that are most relevant to the problem:  
+            1. improve computational efficiency  
+            2. reduce the generalization error of the model by removing irrelevant features or noise (useful for algorithms that don't support regularization)  
+        * **Sequential Backward Selection (SBS)**: sequentially removes features from the full feature subset until the new feature subspace contains the desired number of features  
+            1. reduce the dimensionality of the initial feature subspace with a minimum decay in performance of the classifier to improve upon computational efficiency  
+            2. can improve the predictive power of the model if a model suffers from overfitting  
+        * SBS steps:
+            1. initialize the algorithm with ```k=d```, where ```d``` is the dimensionality of the full feature space ```Xd```  
+            2. determine the feature ```x'``` that maximizes the criterion ```x'= argmax C(Xk-x)``` where x belongs to Xk  
+            3. remove the feature ```x'``` from the feature set  
+            4. terminate if ```k``` equals the number of desired features; if not, go to step 2  
+- feature extraction  
+    + derive information from the feature set to construct a new feature subspace  
+- assess feature importance  
+    + use random forest: measure feature importance as the averaged impurity decrease --> computed from all decision trees in the forest without making any assumption whether the data is linearly separable or not   
     
     
 ### logistic regression  
