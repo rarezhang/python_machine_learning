@@ -201,25 +201,57 @@ P 91 P 138
         
         
 ### dimensionality reduction  
-p 143  
+P 143  
 - feature selection  
-    + select a subset of the original features  
-    + Sequential feature selection: greedy search algorithms  
-        * reduce an initial d-dimensional feature space to a k-dimensional feature subspace where k < d  
-        * motivation: automatically select a subset of features that are most relevant to the problem:  
-            1. improve computational efficiency  
-            2. reduce the generalization error of the model by removing irrelevant features or noise (useful for algorithms that don't support regularization)  
-        * **Sequential Backward Selection (SBS)**: sequentially removes features from the full feature subset until the new feature subspace contains the desired number of features  
-            1. reduce the dimensionality of the initial feature subspace with a minimum decay in performance of the classifier to improve upon computational efficiency  
-            2. can improve the predictive power of the model if a model suffers from overfitting  
-        * SBS steps:
-            1. initialize the algorithm with ```k=d```, where ```d``` is the dimensionality of the full feature space ```Xd```  
-            2. determine the feature ```x'``` that maximizes the criterion ```x'= argmax C(Xk-x)``` where x belongs to Xk  
-            3. remove the feature ```x'``` from the feature set  
-            4. terminate if ```k``` equals the number of desired features; if not, go to step 2  
 - feature extraction  
-    + derive information from the feature set to construct a new feature subspace  
 - assess feature importance  
+
+
+### feature selection  
+P 143  
+- select a subset of the original features  
+- sequential feature selection: greedy search algorithms  
+    + reduce an initial d-dimensional feature space to a k-dimensional feature subspace where k < d  
+    + motivation: automatically select a subset of features that are most relevant to the problem:  
+        1. improve computational efficiency  
+        2. reduce the generalization error of the model by removing irrelevant features or noise (useful for algorithms that don't support regularization)  
+    + **Sequential Backward Selection (SBS)**: sequentially removes features from the full feature subset until the new feature subspace contains the desired number of features  
+        1. reduce the dimensionality of the initial feature subspace with a minimum decay in performance of the classifier to improve upon computational efficiency  
+        2. can improve the predictive power of the model if a model suffers from overfitting  
+    + SBS steps:
+        1. initialize the algorithm with ```k=d```, where ```d``` is the dimensionality of the full feature space ```Xd```  
+        2. determine the feature ```x'``` that maximizes the criterion ```x'= argmax C(Xk-x)``` where x belongs to Xk  
+        3. remove the feature ```x'``` from the feature set  
+        4. terminate if ```k``` equals the number of desired features; if not, go to step 2  
+            
+            
+            
+### feature extraction  
+P 152  
+- derive information from the feature set to construct a new feature subspace --> summarize the information content of a dataset by transforming it onto a new feature subspace of lower dimensionality than the original one  
+    + data compression with the goal of maintaining most of the relevant information  
+    + improve computational efficiency  
+    + reduce the curse of dimensionality (especially with non-regularized models)  
+- principal component analysis (**PCA**): 
+    + for unsupervised data compression  
+    + identify patterns in data based on the correlation between features  
+    + aims to find the directions of maximum variance in high-dimensional data and projects it onto a new subspace with equal or fewer dimensions  
+    + the orthogonal axes (principal components) of the new subspace: the directions of maximum variance given the constraint that the new feature axes are orthogonal to each other as illustrated  
+    ![pca](https://cloud.githubusercontent.com/assets/5633774/24339387/2b2fde20-1260-11e7-890c-798a88eb6204.png)  
+        1. standardize the **d**-dimensional dataset  
+        2. construct the covariance matrix  
+        ![covariance_matrix](https://cloud.githubusercontent.com/assets/5633774/24339879/59234d1e-1263-11e7-988f-43be5546a82e.png)  
+        positive covariance between two features indicates that the features increase or decrease together, whereas a negative covariance indicates that the features vary in opposite directions  
+        3. decompose the covariance matrix into its eigenvectors and eigenvalues  
+        4. select **k** eigenvectors that correspond to the **k** largest eigenvalues --> **k**: the dimensionality of the new feature subspace (k<=d)  
+        5. construct a projection matrix **w** from the top **k** eigenvectors  
+        6. transform the **d**-dimensional input dataset X using the projection matrix **W** to obtain the new k-dimensional feature subspace  
+- linear discriminant analysis (**LDA**): supervised dimensionality reduction technique for maximizing class separability  
+- kernel principal component analysis: nonlinear dimensionality reduction  
+        
+
+    
+### assess feature importance  
     + use random forest: measure feature importance as the averaged impurity decrease --> computed from all decision trees in the forest without making any assumption whether the data is linearly separable or not   
     
     
