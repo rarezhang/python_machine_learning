@@ -274,8 +274,10 @@ P 152
     + nonlinear dimensionality reduction  
     + transform data that is not linearly separable onto a new, lower-dimensional subspace that is suitable for linear classifiers  
     + kernel PCA: (computationally expensive)
-        * perform a nonlinear mapping --> transforms the data onto a higher-dimensional space 
-        * use standard PCA in this higher-dimensional space to project the data back onto a lower-dimensional space <-- where the samples can be separated by a linear classifier
+        * perform a nonlinear mapping --> transforms the data onto a higher-dimensional space  
+        * use standard PCA in this higher-dimensional space to project the data back onto a lower-dimensional space <-- where the samples can be separated by a linear classifier  
+        * downside: have to specify the parameter the priori *__gamma__*  
+        * memory based method: have to reuse the original training set each time to project new samples  
     + kernel trick (compute on the original feature space)  
         * compute covariance between two features (standardized feature)  
         ![cov_between_features](https://cloud.githubusercontent.com/assets/5633774/24373096/19aa7afe-12e5-11e7-8627-b16b4b6de210.png)  
@@ -302,9 +304,23 @@ P 152
         ![sigmoid kernel](https://cloud.githubusercontent.com/assets/5633774/24374391/80ac8572-12e9-11e7-8a54-d064911b3d79.png)  
         * Radial Basis Function (RBF) or Gaussian kernel:  
         ![rbf kernel](https://cloud.githubusercontent.com/assets/5633774/24374408/95539588-12e9-11e7-8717-a508faa58666.png)  
-    
+    + RBF kernel PCA steps:  
+        1. compute the kernel (similarity) matrix k:  
+        ![kernel matrix](https://cloud.githubusercontent.com/assets/5633774/24374778/f6f5777e-12ea-11e7-8e54-6358cb08953f.png)  
+        2. center the kernel matrix k --> since cannot guarantee that the new feature space is also centered at zero:  
+        ![center kernel matrix](https://cloud.githubusercontent.com/assets/5633774/24374839/2e41403c-12eb-11e7-9d7a-4f885f0a40dc.png)  
+        ![1n](https://cloud.githubusercontent.com/assets/5633774/24374956/83bc241e-12eb-11e7-874f-8bc0a940f692.png)  
+        note: all values are equal to ```1/n```  
+    + project new data points  
+        * calculate the pairwise RBF kernel between each i-th sample in the training dataset and the new sample x':  
+        ![kernel rbf new data](https://cloud.githubusercontent.com/assets/5633774/24386400/3d4b5a34-1324-11e7-9719-0e39a506cd60.png)  
+        * eigenvectors **a** and eigenvalues **λ** of the kernel matrix **K** satisfy the the condition:  
+        ![kernel rbf condition](https://cloud.githubusercontent.com/assets/5633774/24386415/53f591dc-1324-11e7-98d7-04b91d1c6f21.png)  
+        
+        
 ### assess feature importance  
-    + use random forest: measure feature importance as the averaged impurity decrease --> computed from all decision trees in the forest without making any assumption whether the data is linearly separable or not   
+- use random forest: measure feature importance as the averaged impurity decrease  
+    + computed from all decision trees in the forest without making any assumption whether the data is linearly separable or not   
     
     
 ### logistic regression  
