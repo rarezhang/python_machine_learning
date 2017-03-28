@@ -525,7 +525,44 @@ P 115
         * apply the standard scaling to each feature column:  
         ![standardization](https://cloud.githubusercontent.com/assets/5633774/24332983/f62d94a2-1204-11e7-9bf4-c9446bab6ecb.png)  
                     
+### model selection 
+- tuning and comparing different parameter settings to further improve the performance for making predictions on unseen data  
+
+
+
+### holdout cross-validation  
+P 198  
+![model selection](https://cloud.githubusercontent.com/assets/5633774/24388264/6693392a-132e-11e7-935c-1a8e8f02cb70.png)  
+- separate the data into three parts: select optimal values --> hyper-parameters:
+    + training set: used to fit the different models  
+    + validation set: the performance on the validation set is used for the model selection  
+    + test set: the model hasn't seen before during the training and model selection steps --> obtain a less biased estimate of its ability to generalize to new data  
+- estimate the models' generalization error on the test dataset  
+- disadvantage:  
+    + sensitive to how to partition the training set into the training and validation subsets  
+    + the estimate will vary for different samples of the data  
 
 
     
-        
+### k-fold cross-validation  
+P 200  
+![k-fold cross validation](https://cloud.githubusercontent.com/assets/5633774/24388686/3463b350-1331-11e7-8b17-5f2fd7407cec.png)  
+- use k-fold cross-validation for model tuning  
+    + finding the optimal hyper-parameter values --> yield a satisfying generalization performance  
+    + retrain the model on the complete training set and obtain a final performance estimate using the independent test set  
+    + steps:  
+        * randomly split the training dataset into **_k_** folds without replacement  
+        * **_k-1_** folds: model training  
+        * **_1_** fold: testing  
+        * repeated k times --> obtain **_k_** model  
+- tuning k:  
+    + small training sets --> larger k --> useful to increase the number of folds --> more training data will be used in each iteration, which results in a lower bias towards estimating the generalization performance by averaging the individual model estimates  
+    + large dataset --> small k --> still obtain an accurate estimate of the average performance of the model while reducing the computational cost of refitting and evaluating the model on the different folds  
+- leave-one-out (LOO): 
+    + set the number of folds equal to the number of training samples (k = n), only one training sample is used for testing during each iteration   
+    + for working with very small datasets  
+- stratified k-fold cross-validation  
+    + yield better bias and variance estimates (especially in cases of unequal class proportions)  
+    + class proportions are preserved in each fold --> ensure each fold is representative of the class proportions in the training dataset  
+    
+    
