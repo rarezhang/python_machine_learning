@@ -2,7 +2,7 @@
 
 reading notes of **[Python Machine Learning](https://www.amazon.com/dp/B00YSILNL0/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1)** 
 
-# Reading notes 
+## Reading notes  
 
 
 ### three different types of machine learning  
@@ -566,3 +566,61 @@ P 200
     + class proportions are preserved in each fold --> ensure each fold is representative of the class proportions in the training dataset  
     
     
+    
+### learning curves & validation curves  
+P 204  
+- learning curves  
+    + diagnose if a learning algorithm has a problem with overfitting (high variance) or underfitting (high bias)  
+    ![learning curves](https://cloud.githubusercontent.com/assets/5633774/24414375/1e42e778-1393-11e7-88cd-d6faf37e2aa9.png)  
+        * high bias: both low training and cross-validation accuracy --> underfits the training data --> increase the number of parameters  
+        * high variance: large gap between the training and cross-validation accuracy --> collect more training data; reduce the complexity of the model  
+- validation curves  
+    + improve the performance of a model by addressing the common issues such as overfitting or underfitting  
+    
+ 
+ 
+### grid search  
+P 210  
+- fine-tuning parameters of machine learning models  
+- brute-force exhaustive search paradigm  
+
+
+
+### nested cross-validation  
+P 187  
+![nested cross-validation](https://cloud.githubusercontent.com/assets/5633774/24419332/a0023d94-13a3-11e7-9001-19733f5653f1.png)  
+- algorithm selection  
+- steps:  
+    1. an outer k-fold cross-validation loop to split the data into training and test folds  
+    2. an inner loop used to select the model using k-fold cross-validation on the training fold  
+    3. test fold is used to evaluate the model performance  
+    
+    
+### performance evaluation metrics  
+P 214  
+- confusion matrix: square matrix that reports the counts of the true positive, true negative, false positive, and false negative predictions of a classifier  
+![confusion matrix](https://cloud.githubusercontent.com/assets/5633774/24420041/40738b28-13a6-11e7-8746-3e4f735d1cee.png)  
+- **error** (**ERR**) and **accuracy** (**ACC**)  
+    + provide general information about how many samples are misclassified  
+    + ERR: the sum of all false predictions divided by the number of total predications  
+    ![err](https://cloud.githubusercontent.com/assets/5633774/24420501/e9ffbb16-13a7-11e7-8696-5a68b4efa97b.png)  
+    + ACC: accuracy is calculated as the sum of correct predictions divided by the total number of predictions  
+    ![acc](https://cloud.githubusercontent.com/assets/5633774/24420528/ff71faa4-13a7-11e7-8506-ff9e208c8f72.png)  
+- **true positive rate** (**TPR**) and **false positive rate** (**FPR**)  
+    + useful for imbalanced class problems  
+    ![fpr tpr](https://cloud.githubusercontent.com/assets/5633774/24420628/59eb6e7a-13a8-11e7-8e3a-080b10848949.png)  
+- **precision** (**PRE**) and **recall** (**REC**)  
+    ![pre rec](https://cloud.githubusercontent.com/assets/5633774/24420849/18d2586c-13a9-11e7-9c58-46fbcb30f6a5.png)  
+- **F1-score**  
+    + combination of precision and recall  
+    ![f1](https://cloud.githubusercontent.com/assets/5633774/24420897/4650418c-13a9-11e7-9019-926db831dcc7.png)  
+- **receiver operator characteristic** (**ROC**) and **area under the curve** (**AUC**)  
+    + useful tools for selecting models for classification  based on their performance with respect to the false positive and true positive rates  
+    + computed by shifting the decision threshold of the classifier  
+    + perfect classifier would fall into the top-left corner of the graph with a true positive rate of 1 and a false positive rate of 0  
+    + AUC is calculated based on ROC  
+- scoring metrics for multi-class classification  
+    + micro-average: calculated from the **individual** true positives, true negatives, false positives, and false negatives of the system  
+    ![micro pre](https://cloud.githubusercontent.com/assets/5633774/24430557/fb579eaa-13cb-11e7-9855-94b183b387d6.png)  
+    + macro average: calculated as the **average scores** of the different systems (useful with class imbalances)  
+    ![macro pre](https://cloud.githubusercontent.com/assets/5633774/24430575/0c776df0-13cc-11e7-91b7-40b1aa03f1a6.png)  
