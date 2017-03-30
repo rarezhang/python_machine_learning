@@ -624,3 +624,18 @@ P 214
     ![micro pre](https://cloud.githubusercontent.com/assets/5633774/24430557/fb579eaa-13cb-11e7-9855-94b183b387d6.png)  
     + macro average: calculated as the **average scores** of the different systems (useful with class imbalances)  
     ![macro pre](https://cloud.githubusercontent.com/assets/5633774/24430575/0c776df0-13cc-11e7-91b7-40b1aa03f1a6.png)  
+
+    
+    
+### ensembles  
+P 224  
+- combine different classifiers tin to a meta-classifier that has a better generalization performance than each individual classifier alone  
+- the error probability of an ensemble is always better than the error of an individual base classifier as long as the base classifiers perform better than random guessing (50%)  
+- majority voting (binary class) & plurality voting (multi-class):  
+    ![majority voting](https://cloud.githubusercontent.com/assets/5633774/24431232/92c86d66-13cf-11e7-90cf-16b07bdd347a.png)  
+    + select the class label that has been predicted by the majority of classifiers  
+    ![majority voting mode](https://cloud.githubusercontent.com/assets/5633774/24431255/b6b937be-13cf-11e7-975f-e0d981f03ce2.png)  
+    + two ways:
+        1. training m different classifiers (C1...Cm) on training set  
+        2. use the same base classification algorithm fit different subsets fo the training set  
+    + weighted majority voting: combine different classification algorithms associated with individual weights for confidence --> build a stronger meta-classifier that balances out the individual classifiers' weaknesses on a particular dataset    
