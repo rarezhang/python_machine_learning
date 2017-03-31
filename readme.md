@@ -715,3 +715,6 @@ P 263
 - normalize the raw term frequencies: L2-normalization --> returns a vector of length 1 by dividing an unnormalized feature vector v by its L2-norm  
 ![l2-norm](https://cloud.githubusercontent.com/assets/5633774/24536559/0be7957a-1590-11e7-8185-7d31b8521727.png)  
   
+
+  
+  
