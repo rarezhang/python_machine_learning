@@ -631,11 +631,56 @@ P 214
 P 224  
 - combine different classifiers tin to a meta-classifier that has a better generalization performance than each individual classifier alone  
 - the error probability of an ensemble is always better than the error of an individual base classifier as long as the base classifiers perform better than random guessing (50%)  
-- majority voting (binary class) & plurality voting (multi-class):  
+- ensemble learning increases the computational complexity compared to individual classifiers  
+
+
+### majority voting (binary class) & plurality voting (multi-class):  
     ![majority voting](https://cloud.githubusercontent.com/assets/5633774/24431232/92c86d66-13cf-11e7-90cf-16b07bdd347a.png)  
     + select the class label that has been predicted by the majority of classifiers  
     ![majority voting mode](https://cloud.githubusercontent.com/assets/5633774/24431255/b6b937be-13cf-11e7-975f-e0d981f03ce2.png)  
     + two ways:
         1. training m different classifiers (C1...Cm) on training set  
         2. use the same base classification algorithm fit different subsets fo the training set  
-    + weighted majority voting: combine different classification algorithms associated with individual weights for confidence --> build a stronger meta-classifier that balances out the individual classifiers' weaknesses on a particular dataset    
+    + majority voting (weighted): combine different classification algorithms associated with individual weights for confidence --> build a stronger meta-classifier that balances out the individual classifiers' weaknesses on a particular dataset  
+    ![weighted majority voting](https://cloud.githubusercontent.com/assets/5633774/24517503/772e2612-1533-11e7-9cda-106677a296f1.png)  
+        * **_w_**: a weight associated with a base classifier  
+        * **_C_**: the predicted class label of the ensemble  
+        * **_χ_**: the characteristic function  
+        * **_A_**: the set of unique class labels  
+    + majority voting (equal weights):  
+    ![equal weight](https://cloud.githubusercontent.com/assets/5633774/24517844/a901d2c8-1534-11e7-8d8e-cf9878d46cc6.png)  
+    + majority voting (probabilities): using the predicted class probabilities instead of the class labels for majority voting --> useful if the classifiers in the ensemble are well calibrated  
+    ![majority voting prob](https://cloud.githubusercontent.com/assets/5633774/24518208/0639f8de-1536-11e7-868c-fb6662abac50.png)  
+        + **_Pij_**: the predicted probability of the j-th classifier for class label i  
+
+
+
+### bagging
+P 244  
+- building an ensemble of classifiers from bootstrap samples  
+- complex classification (data with high dimensionality) can easily lead to overfitting, bagging is:  
+    * effectively reduce the **variance of a model**  
+    * ineffective in reducing model bias (in practice, choose ensemble of classifiers with low bias, e.g., unpruned decision trees)  
+- bootstrap: random samples with replacement  
+- bootstrap aggregating:  
+    + draw bootstrap samples from the initial training set in each round of bagging  
+    + each bootstrap sample is used to fit a classifier (e.g., an unpruned decision tree. random forests are a special case of bagging)  
+    
+    
+### adaptive boosting  
+P 249  
+- leveraging weak learners  
+    + the ensemble consists of very simple base classifiers (weak learners)  
+    + let the weak learners subsequently learn from misclassified training samples to improve the performance of the ensemble  
+- can lead to decrease in bias as well as variance compared to bagging models (in practice: lead to high variance <-- tendency to overfit the training data)  
+- boosting steps:
+    1. draw a random subset of training samples ```d1``` without replacement from the training set ```D``` to train a weak learner ```C1```  
+        * all training samples are assigned equal weights  
+    2. draw second random training subset ```d1``` without replacement from the training set and add 50% of the samples that were previously misclassified to train a weak learner ```C2```  
+        * assign a larger weight to the previously misclassified samples  
+        * lower the weight of the correctly classified samples  
+    3. find the training samples ```d3``` in the training set ```D``` on which ```C1``` and ```C2``` disagree to train a third weak learner ```C3```  
+    4. combine the weak learners ```C1``` , ```C2``` , and ```C3```  via majority voting  
+- AdaBoost steps:  
+![adaboost](https://cloud.githubusercontent.com/assets/5633774/24531494/627a19b6-156e-11e7-9c75-f6a69f8a0f88.png)  
+     
