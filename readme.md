@@ -683,4 +683,35 @@ P 249
     4. combine the weak learners ```C1``` , ```C2``` , and ```C3```  via majority voting  
 - AdaBoost steps:  
 ![adaboost](https://cloud.githubusercontent.com/assets/5633774/24531494/627a19b6-156e-11e7-9c75-f6a69f8a0f88.png)  
+
+
+### sentiment analysis  
+P 260  
+- sentiment analysis == opinion mining  
+- analyze the polarity of documents: classify documents based on the expressed opinions or emotions of the authors with regard to a particular topic  
      
+     
+     
+### bag-of-words model  
+P 261  
+- represent text as numerical feature vectors  
+    + create a vocabulary of unique tokens from the entire set of documents  
+    + construct a feature vector from each document that contains the counts of how often each word occurs in the particular document  
+- unigram model: each item or token in the vocabulary represents a single word  
+- n-gram: the contiguous sequences of items in NLP  
+    + choice of the number n in the n-gram model depends on the particular application  
+    
+    
+### term frequency inverse document frequency (tf-idf)  
+P 263  
+- down-weight the frequently occurring words in the feature vectors  
+![tf-idf](https://cloud.githubusercontent.com/assets/5633774/24536217/cbed5948-158d-11e7-9535-2986ac484f56.png)  
+![idf](https://cloud.githubusercontent.com/assets/5633774/24536229/dc90b75e-158d-11e7-9df1-37331a996d8e.png)  
+- add one to idf:
+![tf-idf+1](https://cloud.githubusercontent.com/assets/5633774/24536512/bdb77186-158f-11e7-9748-98f1c28501f2.png)  
+![idf+1](https://cloud.githubusercontent.com/assets/5633774/24536526/d931d550-158f-11e7-9272-7bfdd239e0c2.png)  
+    + to avoid division by zero, as when a term appears in no documents, even though this would not happen in a strictly "bag of words" approach  
+    + to set a lower bound to avoid a term being given a zero weight just because it appeared in all documents  
+- normalize the raw term frequencies: L2-normalization --> returns a vector of length 1 by dividing an unnormalized feature vector v by its L2-norm  
+![l2-norm](https://cloud.githubusercontent.com/assets/5633774/24536559/0be7957a-1590-11e7-8185-7d31b8521727.png)  
+  
