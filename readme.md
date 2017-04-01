@@ -800,5 +800,90 @@ P 305
     + how the data is distributed and whether it contains outliers  
 - correlation matrix:  
     + the linear relationship between the features  
-    + a square matrix that contains the Pearson product-moment correlation coefficients ```[-1, 1]``` --> measure the linear dependence between pairs of features  
+    + a square matrix that contains the Pearson product-moment correlation  coefficients ```[-1, 1]``` --> measure the linear dependence between pairs of features  
     ![pearson correlation](https://cloud.githubusercontent.com/assets/5633774/24571046/bc2ec438-1623-11e7-8f90-fec17a109cbf.png)
+
+    
+    
+### clustering
+P 366  
+- goal: find a natural grouping in data such that items in the same cluster are more similar to each other than those from different clusters --> group the samples based on their feature similarities  
+- hard clustering: each sample in a dataset is assigned to exactly one cluster  
+- soft clustering (fuzzy clustering): assign a sample to one or more clusters (e.g., fuzzy C-means (FCM))  
+
+
+### k-means  
+P 337  
+- goal: group the samples based on their feature similarities  
+    + advantage: easy to implement & computationally efficient  
+    + disadvantage: have to specify the number of clusters k a priori  
+        * result in bad clusterings  
+        * result in slow convergence if the initial centroids are chosen poorly  
+    + disadvantage: bad performance if clusters are overlap or not hierarchical  
+- optimization: minimize the within-cluster sum of squared errors (SSE)  
+![SSE](https://cloud.githubusercontent.com/assets/5633774/24575310/e7e8bcfe-1656-11e7-80d4-0ab16f4763ef.png)  
+- steps:  
+    1. randomly pick ```k``` centroids from the sample points as initial cluster centers  
+    2. assign each sample to the nearest centroid 
+    ![knn](https://cloud.githubusercontent.com/assets/5633774/24575279/24b01034-1656-11e7-9a96-2e7e8861d4d2.png)  
+    3. move the centroids to the center of the samples that were assigned to it  
+    4. repeat the steps 2 and 3 until the cluster assignment do not change or a user-defined tolerance or a maximum number of iterations is reached  
+- measure similarity between objects: distance  
+    + squared Euclidean distance:  
+    ![squared euclidean distance](https://cloud.githubusercontent.com/assets/5633774/24575298/ae0497e2-1656-11e7-8da0-ebe632e5b7e5.png)  
+- elbow method --> find the optimal number of clusters  
+    + if ```k``` increase, within-cluster SSE will decrease: because the samples will be closer to the centroids they are assigned to  
+    + identify the value of ```k``` where the distortion begins to increase most rapidly  
+- silhouette plots --> quantify the quality of clustering  
+    + a graphical tool to plot a measure of how tightly grouped the samples in the clusters are  
+    + scrutinize the sizes of the different clusters and identify clusters that contain outliers  
+    + steps:  
+        1. calculate the cluster cohesion ```a_i``` as the average distance between a sample ```x_i``` and all other points in the same cluster  
+        2. calculate the cluster separation ```b_i``` from the next closest cluster as the average distance between the sample ```x_i``` and all samples in the nearest cluster  
+        3. calculate the silhouette ```s_i``` as the difference between cluster cohesion and separation divided by the greater of the two, as shown here:  
+        ![silhouette](https://cloud.githubusercontent.com/assets/5633774/24581096/8b1d5c28-16c9-11e7-8c76-97015c4d88c0.png)  
+    
+    
+    
+    
+### fuzzy C-means (FCM)  
+P 343  
+- replace the hard cluster assignment by probabilities for each point belonging to each cluster  
+    + each iteration is more expensive than an iteration in k-means  
+    + requires **fewer** iterations overall to reach convergence  
+- objective function:  
+![fcm-objective fun](https://cloud.githubusercontent.com/assets/5633774/24575447/a492b1ae-165a-11e7-9c0a-c82a85e11f59.png)  
+    + the larger the value of ```m```, the smaller the cluster membership ```w``` becomes, which leads to fuzzier clusters  
+    + the cluster membership probability:  
+    ![cluster membership probability](https://cloud.githubusercontent.com/assets/5633774/24575461/17fb0b64-165b-11e7-9192-458adaa6a256.png)  
+- steps:  
+![fcm steps](https://cloud.githubusercontent.com/assets/5633774/24575452/ba41bc48-165a-11e7-8a37-a61fccc24217.png)  
+
+    
+    
+### k-means++
+P 340  
+- address k-means issue: place the initial centroids far away from each other --> leads to better and more consistent results  
+- steps:  
+![k-means++](https://cloud.githubusercontent.com/assets/5633774/24575340/f994dd6a-1657-11e7-8f76-f34731874a87.png)  
+
+
+### hierarchical clustering  
+P 351  
+- allows users to plot dendrograms --> help with the interpretation of the results by creating meaningful taxonomies  
+    +  do not need to specify the number of clusters upfront  
+- dendrograms: visualizations of a binary hierarchical clustering  
+- main approaches:  
+    + agglomerative hierarchical: start with each sample as an individual cluster and merge the closest pairs of clusters until only one cluster remains  
+        * steps (complete linkage):  
+            1. compute the distance matrix of all samples  
+            2. represent each data point as a singleton cluster  
+            3. merge the two closest clusters based on the distance of the most dissimilar (distant) members  
+            4. update the similarity matrix  
+            5. repeat steps 2 to 4 until one single cluster remains  
+        ![single and complete linkage](https://cloud.githubusercontent.com/assets/5633774/24582063/5c124368-16dc-11e7-862b-6494bcdbaaad.png)  
+        * single linkage: compute the distances between the most similar members for each pair of clusters and merge the two clusters for which the distance between the most similar members is the smallest  
+        * complete linkage: compare the most dissimilar members to perform the merge  
+        * average linkage: merge the cluster pairs based on the minimum average distances between all group members in the two clusters  
+        * Ward's linkage: two clusters that lead to the minimum increase of the total within-cluster SSE are merged  
+    + divisive hierarchical: start with one cluster that encompasses all our samples; iteratively split the cluster into smaller clusters until each cluster only contains one sample  
