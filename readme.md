@@ -717,4 +717,88 @@ P 263
   
 
   
+### regression analysis  
+P 302  
+- predict target variables on a continuous scale  
+    + simple (univariate) linear regression: model the relationship between a single feature (explanatory variable **_x_**) and a continuous valued response (target variable **_y_**)  
+    ![regression model](https://cloud.githubusercontent.com/assets/5633774/24570038/33f9c28e-161e-11e7-9172-08cd05b5c36c.png)  
+        * goal: learn the weights of the linear equation to describe the relationship between the explanatory variable and the target variable, which can then be used to predict the responses of new explanatory variables that were not part of the training dataset  
+        * regression line: best-fitting line  
+        ![regression line](https://cloud.githubusercontent.com/assets/5633774/24570084/83aa4290-161e-11e7-92f5-b81cfd319638.png)  
+    + multiple linear regression:  
+    ![multiple linear regression](https://cloud.githubusercontent.com/assets/5633774/24570113/ab5e94da-161e-11e7-86e5-44b2a67263e4.png)  
+    + polynomial regression: model a nonlinear relationship  
+    ![polynomial regressiion](https://cloud.githubusercontent.com/assets/5633774/24573104/d147b590-1633-11e7-8328-38f022ff6b80.png)  
+- ordinary least squares (**OLS**): estimate the parameters of the regression line that minimizes the sum of the squared vertical distances (residuals or errors) to the sample points  
+![ols](https://cloud.githubusercontent.com/assets/5633774/24571298/0be01ea4-1625-11e7-8bed-d4e7938938ad.png)  
+- residual plots: 
+    + goal:  
+        * graphical analysis for diagnosing regression models to detect nonlinearity and outliers  
+        * check if the errors are randomly distributed  
+    + perfect prediction: residuals will be exactly zero  
+    + good model: errors are randomly distributed and the residuals should be randomly scattered around the centerline    
+- Mean Squared Error (**MSE**): comparing different regression models or for tuning their parameters via a grid search and cross-validation  
+![mse](https://cloud.githubusercontent.com/assets/5633774/24572480/e5150826-162d-11e7-89d6-b0e3bbb16c4a.png)  
+- coefficient of determination (**R^2**): standardized version of the MSE [0, 1]  
+    + the fraction of response variance that is captured by the model   
+    ![R^2](https://cloud.githubusercontent.com/assets/5633774/24572583/a74cfa2a-162e-11e7-8810-123fecb09bfc.png)  
+    SSE: the sum of squared errors  
+    SST: the total sum of squares  
+    ![sst](https://cloud.githubusercontent.com/assets/5633774/24572590/b8c99e70-162e-11e7-916f-16a71ecf4897.png)  
+    + if R^2=1, the model fits the data perfectly with a corresponding MSE=0  
+- regularization:  
+    + Ridge Regression: L2 penalized model --> add the squared sum of the weights to the least-squares cost function  
+    By increasing the value of the hyperparameter λ --> increase the regularization strength and shrink the weights of our model  
+    ![ridge regression](https://cloud.githubusercontent.com/assets/5633774/24572668/a9ca94aa-162f-11e7-8ddc-9bbc97d30bb9.png)  
+    ![l2](https://cloud.githubusercontent.com/assets/5633774/24572674/bef16048-162f-11e7-9e52-f817025d2486.png)  
+    + Least Absolute Shrinkage and Selection Operator (LASSO): depending on the regularization strength, certain weights can become zero, which makes the LASSO also useful as a supervised feature selection technique  
+    limitation: selects at most ```n``` variables if ```m > n```  
+    ![lasso](https://cloud.githubusercontent.com/assets/5633774/24572709/0d368986-1630-11e7-92fb-c607a47e6256.png)  
+    ![l1](https://cloud.githubusercontent.com/assets/5633774/24572715/2118eeee-1630-11e7-95c7-db56d8c39ba4.png)  
+    + Elastic Net: has a L1 penalty to generate sparsity and a L2 penalty to overcome some of the limitations of the LASSO  
+    ![elastic net](https://cloud.githubusercontent.com/assets/5633774/24572748/60113232-1630-11e7-9ece-ce20c0dd73ae.png)    
+
+
+    
+### decision tree regression  
+P 329  
+- does not require any transformation of the features wit nonlinear data  
+- replace entropy as the impurity measure of a node by the MSE (within-node variance) --> variance reduction  
+![tree_mse](https://cloud.githubusercontent.com/assets/5633774/24573346/f157aa4a-1636-11e7-867f-0c98663b35d3.png)  
+- predict target value  
+![tree_pre](https://cloud.githubusercontent.com/assets/5633774/24573367/16bb8716-1637-11e7-8eb3-1c22015a6836.png)  
   
+    
+    
+### random forest regression 
+P 331  
+- less sensitive to outliers in the dataset and don't require much parameter tuning  
+- use the MSE criterion to grow the individual decision trees --> the predicted target variable is calculated as the average prediction over all 
+decision trees  
+
+
+    
+    
+### RANdom SAmple Consensus (RANSAC)  
+- ovoid the impact by the presence of outliers  
+- steps:  
+    1. Select a random number of samples to be inliers and fit the model  
+    2. Test all other data points against the fitted model and add those points that fall within a user-given tolerance to the inliers  
+    3. Refit the model using all inliers  
+    4. Estimate the error of the fitted model versus the inliers  
+    5. Terminate the algorithm if the performance meets a certain user-defined threshold or if a fixed number of iterations has been reached; go back to step 1 otherwise  
+    
+
+   
+    
+### exploratory data analysis  
+P 305  
+- visually detect the presence of outliers, the distribution of the data, and the relationships between features  
+- first step prior to the training of a machine learning model  
+- scatter plot matrix:  
+    + visualize the pair-wise correlations between the different features in this dataset in one place  
+    + how the data is distributed and whether it contains outliers  
+- correlation matrix:  
+    + the linear relationship between the features  
+    + a square matrix that contains the Pearson product-moment correlation coefficients ```[-1, 1]``` --> measure the linear dependence between pairs of features  
+    ![pearson correlation](https://cloud.githubusercontent.com/assets/5633774/24571046/bc2ec438-1623-11e7-8f90-fec17a109cbf.png)
