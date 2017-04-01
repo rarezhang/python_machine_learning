@@ -635,23 +635,23 @@ P 224
 
 
 ### majority voting (binary class) & plurality voting (multi-class):  
-    ![majority voting](https://cloud.githubusercontent.com/assets/5633774/24431232/92c86d66-13cf-11e7-90cf-16b07bdd347a.png)  
-    + select the class label that has been predicted by the majority of classifiers  
-    ![majority voting mode](https://cloud.githubusercontent.com/assets/5633774/24431255/b6b937be-13cf-11e7-975f-e0d981f03ce2.png)  
-    + two ways:
-        1. training m different classifiers (C1...Cm) on training set  
-        2. use the same base classification algorithm fit different subsets fo the training set  
-    + majority voting (weighted): combine different classification algorithms associated with individual weights for confidence --> build a stronger meta-classifier that balances out the individual classifiers' weaknesses on a particular dataset  
-    ![weighted majority voting](https://cloud.githubusercontent.com/assets/5633774/24517503/772e2612-1533-11e7-9cda-106677a296f1.png)  
-        * **_w_**: a weight associated with a base classifier  
-        * **_C_**: the predicted class label of the ensemble  
-        * **_χ_**: the characteristic function  
-        * **_A_**: the set of unique class labels  
-    + majority voting (equal weights):  
-    ![equal weight](https://cloud.githubusercontent.com/assets/5633774/24517844/a901d2c8-1534-11e7-8d8e-cf9878d46cc6.png)  
-    + majority voting (probabilities): using the predicted class probabilities instead of the class labels for majority voting --> useful if the classifiers in the ensemble are well calibrated  
-    ![majority voting prob](https://cloud.githubusercontent.com/assets/5633774/24518208/0639f8de-1536-11e7-868c-fb6662abac50.png)  
-        + **_Pij_**: the predicted probability of the j-th classifier for class label i  
+![majority voting](https://cloud.githubusercontent.com/assets/5633774/24431232/92c86d66-13cf-11e7-90cf-16b07bdd347a.png)  
+- select the class label that has been predicted by the majority of classifiers  
+![majority voting mode](https://cloud.githubusercontent.com/assets/5633774/24431255/b6b937be-13cf-11e7-975f-e0d981f03ce2.png)  
+- two ways:
+    1. training m different classifiers (C1...Cm) on training set  
+    2. use the same base classification algorithm fit different subsets fo the training set  
+- majority voting (weighted): combine different classification algorithms associated with individual weights for confidence --> build a stronger meta-classifier that balances out the individual classifiers' weaknesses on a particular dataset  
+![weighted majority voting](https://cloud.githubusercontent.com/assets/5633774/24517503/772e2612-1533-11e7-9cda-106677a296f1.png)  
+    * **_w_**: a weight associated with a base classifier  
+    * **_C_**: the predicted class label of the ensemble  
+    * **_χ_**: the characteristic function  
+    * **_A_**: the set of unique class labels  
+- majority voting (equal weights):  
+![equal weight](https://cloud.githubusercontent.com/assets/5633774/24517844/a901d2c8-1534-11e7-8d8e-cf9878d46cc6.png)  
+- majority voting (probabilities): using the predicted class probabilities instead of the class labels for majority voting --> useful if the classifiers in the ensemble are well calibrated  
+![majority voting prob](https://cloud.githubusercontent.com/assets/5633774/24518208/0639f8de-1536-11e7-868c-fb6662abac50.png)  
+    + **_Pij_**: the predicted probability of the j-th classifier for class label i  
 
 
 
@@ -808,8 +808,14 @@ P 305
 ### clustering
 P 366  
 - goal: find a natural grouping in data such that items in the same cluster are more similar to each other than those from different clusters --> group the samples based on their feature similarities  
-- hard clustering: each sample in a dataset is assigned to exactly one cluster  
-- soft clustering (fuzzy clustering): assign a sample to one or more clusters (e.g., fuzzy C-means (FCM))  
+- categories:  
+    + hard clustering: each sample in a dataset is assigned to exactly one cluster  
+    + soft clustering (fuzzy clustering): assign a sample to one or more clusters (e.g., fuzzy C-means (FCM))  
+- fundamental categories:  
+    + prototype-based clustering: e.g., k-means, agglomerative hierarchical clustering  
+    + density-based clustering: DBSCAN  
+    + graph-based clustering: 
+        * spectral clustering algorithm: use the eigenvectors of a similarity matrix to derive the cluster relationships  
 
 
 ### k-means  
@@ -887,3 +893,27 @@ P 351
         * average linkage: merge the cluster pairs based on the minimum average distances between all group members in the two clusters  
         * Ward's linkage: two clusters that lead to the minimum increase of the total within-cluster SSE are merged  
     + divisive hierarchical: start with one cluster that encompasses all our samples; iteratively split the cluster into smaller clusters until each cluster only contains one sample  
+    
+    
+    
+### DBSCAN 
+P 359  
+- Density-based Spatial Clustering of Applications with Noise (DBSCAN)  
+    + advantage:  
+        * does not assume that the clusters have a spherical shape  
+        * doesn't necessarily assign each point to a cluster but is capable of removing noise points  
+        * clustering data of arbitrary shapes  
+    + disadvantage:  
+        * curse of dimensionality increases (especially Euclidean distance)  
+        * two hyperparameter: ```MinPts``` and ```ε``` --> need to be optimized to yield good clustering results  
+- density: the number of points within a specified radius  
+- DBSCAN sample label:  
+    ![dbscan](https://cloud.githubusercontent.com/assets/5633774/24583103/d3185034-16f4-11e7-9be1-934cb35408e1.png)  
+    1. core point: at least a specified number (MinPts) of neighboring points fall within the specified radius ```ε```  
+    2. border point: has fewer neighbors than MinPts within ```ε```, but lies within the ```ε``` radius of a core point  
+    3. noise point: neither core nor border points  
+- steps:  
+    1. form a separate cluster for each core point or a connected group of core points (core points are connected if they are no farther away than ```ε```)  
+    2. assign each border point to the cluster of its corresponding core point  
+    
+    
