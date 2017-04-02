@@ -917,3 +917,69 @@ P 359
     2. assign each border point to the cluster of its corresponding core point  
     
     
+    
+### multi-layer neural network  
+P 370  
+- connect multiple single neurons to a multi-layer feed-forward neural network --> multi-layer perceptron (**MLP**)  
+    + **feed-forward** artificial neural network: each layer serves as the input to the next layer without loops  
+    + artificial neurons: sigmoid units (not perceptrons) --> values in the continuous range between 0 and 1  
+![MLP](https://cloud.githubusercontent.com/assets/5633774/24584506/11e3ceb2-1725-11e7-8904-099606486d41.png)  
+- steps:  
+    1. starting at the input layer, forward propagate the patterns of the training data through the network to generate an output  
+    2. based on the network's output, calculate the error that need to minimize using a cost function  
+    3. back-propagate the error, find its derivative with respect to each weight in the network, and update the model  
+    4. after repeating the steps for multiple epochs and learning the weights of the MLP --> use forward propagation to calculate the network output and apply a threshold function to obtain the predicted class labels in the one-hot representation  
+- logistic cost function  
+![logistc cost](https://cloud.githubusercontent.com/assets/5633774/24590218/60f92b7c-179e-11e7-819a-0222d73a0e46.png)  
+the sigmoid activation:  
+![sigmoid activation](https://cloud.githubusercontent.com/assets/5633774/24590228/7fe09174-179e-11e7-9161-178348db834d.png)  
+- regularization: reduce the degree of overfitting  
+![regularization](https://cloud.githubusercontent.com/assets/5633774/24590245/b6033bbc-179e-11e7-9da6-8ac776daf8ea.png)  
+- back-propagation: computationally efficient approach to compute the **derivatives** of a complex cost function -->  use **derivatives** to learn the weight coefficients for parameterizing a multi-layer artificial neural network  
+    1. apply forward propagation in order to obtain the activation of the output layer  
+    ![back-propagation1](https://cloud.githubusercontent.com/assets/5633774/24591404/57f65d3a-17b5-11e7-9fd8-959699394a23.png)  
+    2. propagate the error from right to left: start by calculating the error vector of the output layer  
+    ![back-propagaton2](https://cloud.githubusercontent.com/assets/5633774/24591419/a0477cea-17b5-11e7-9b0b-4ad34ccac5e2.png)  
+    3. calculate the error term of the hidden layer  
+    ![back-propagaton3](https://cloud.githubusercontent.com/assets/5633774/24591425/c55a99fe-17b5-11e7-84e2-acf0e4c8e6e8.png)  
+    the derivative of the sigmoid activation function (sigmoid gradient):  
+    ![sigmoid gradient](https://cloud.githubusercontent.com/assets/5633774/24591437/eb32e960-17b5-11e7-92bb-a373fd18c161.png)  
+    4. accumulate the partial derivative of every **_j-th_** node in layer **_l_** and the **_i-th_** error of the node in layer **_l+1_**  
+    ![accumulate partial derivative](https://cloud.githubusercontent.com/assets/5633774/24591460/7eb91a1a-17b6-11e7-8bb7-8501eb2836b0.png)  
+    vectorized version:  
+    ![vectorized version](https://cloud.githubusercontent.com/assets/5633774/24591467/a6158f9e-17b6-11e7-988c-3b5b397355f5.png)  
+    add the regularization term:  
+    ![add the regularization term](https://cloud.githubusercontent.com/assets/5633774/24591474/cbe9b754-17b6-11e7-96df-36bcb83f9126.png)  
+    5. update weights:  
+    ![update weights](https://cloud.githubusercontent.com/assets/5633774/24591481/fff75f24-17b6-11e7-8eaf-00b34f8a560a.png)  
+- gradient check: 
+    + comparison between the analytical gradients in the network and numerical gradients  
+    + the **more hidden layers** have been added, the **larger** the difference between the numerical and analytical gradient can become (if back-propagation is implemented correctly)  
+    + for simple neural network:  
+        * Relative error <= 1e-7 means everything is okay  
+        * Relative error <= 1e-4 means the condition is problematic, and we should look into it  
+        * Relative error > 1e-4 means there is probably something wrong in our code  
+    
+    
+### convolutional neural network (**CNN**)  
+P 406  
+![cnn](https://cloud.githubusercontent.com/assets/5633774/24591807/ccd8d746-17be-11e7-8b92-dfa6c51ba3ec.png)  
+- build many layers of feature detectors to take the spatial arrangement of pixels in an input image into account  
+    + use **receptive fields** to connect the input layer to a feature map  
+    + receptive fields: overlapping windows that slide over the pixels of an input image to create a feature map  
+    + convolution: the process of creating the feature map  
+    + convolutional layer: the layer that connects the input pixels to each unit in the feature map  
+    + pooling layer: summarize neighboring feature detectors to reduce the number of features for the next layer (feature extraction: take the average or maximum value of a patch of neighboring features and pass it on to the next layer)  
+    + stack multiple layers: stack multiple layers—alternating between **convolutional** and **pooling** layers --> connect it to a multi-layer perceptron for classification  
+    
+ 
+### recurrent neural network (**RNN**)  
+P 408  
+![rnn](https://cloud.githubusercontent.com/assets/5633774/24591825/53e2d930-17bf-11e7-98d4-16ec3362bd66.png)  
+- feed-forward neural networks with feedback loops or back-propagation through time:  
+    + MLPs with an additional time variable  
+    + neurons only fire for a limited amount of time before they are (temporarily) deactivated  
+    + can achieve remarkable results but **much harder to train**: have to consider the additional time component --> amplifies the vanishing and exploding gradient problem (to solve this problem: Long Short Term Memory (**LSTM**))  
+
+  
+   
