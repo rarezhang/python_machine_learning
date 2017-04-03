@@ -981,5 +981,7 @@ P 408
     + neurons only fire for a limited amount of time before they are (temporarily) deactivated  
     + can achieve remarkable results but **much harder to train**: have to consider the additional time component --> amplifies the vanishing and exploding gradient problem (to solve this problem: Long Short Term Memory (**LSTM**))  
 
-  
+### different activation function 
+P 433  
+![activation function](https://cloud.githubusercontent.com/assets/5633774/24592302/d5f688a0-17c8-11e7-812b-eafad49669be.png)  
    
